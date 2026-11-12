@@ -1,0 +1,62 @@
+﻿<Window x:Class="WeishuHelper.OverlayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="卫戍协议助手" Width="380" Height="800"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        Topmost="True" ShowInTaskbar="False" ShowActivated="False" ResizeMode="NoResize"
+        FontFamily="Microsoft YaHei UI" FontSize="13" Foreground="#E8ECEF"
+        UseLayoutRounding="True" TextOptions.TextFormattingMode="Display">
+    <Grid>
+        <Border x:Name="Panel" CornerRadius="18" BorderBrush="{DynamicResource AccentLine}" BorderThickness="1">
+            <DockPanel>
+                <Border x:Name="Header" DockPanel.Dock="Top" CornerRadius="17,17,0,0" Padding="14,6,10,6"
+                        BorderBrush="{DynamicResource AccentFaint}" BorderThickness="0,0,0,1"
+                        MouseLeftButtonDown="Header_MouseDown" Cursor="SizeAll">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center" Cursor="Arrow">
+                            <ToggleButton x:Name="BtnThrough" Content="穿透" Margin="0,0,3,0" Padding="6,2" FontSize="12"
+                                          ToolTip="鼠标穿透：悬浮窗不挡游戏操作（这个按钮仍然能点），再点一次恢复。快捷键 Ctrl+Shift+F2" Click="Through_Click"/>
+                            <ToggleButton x:Name="BtnSettings" Content="⚙" Margin="0,0,3,0" Padding="6,2" FontSize="12" ToolTip="设置" Checked="Settings_Click" Unchecked="Settings_Click"/>
+                            <Button Content="◀" Margin="0,0,3,0" Padding="6,2" FontSize="12" ToolTip="收起成悬浮球（可以拖动，单击展开）" Click="Collapse_Click"/>
+                            <Button Content="✕" Margin="0" Padding="6,2" FontSize="12" ToolTip="隐藏（Ctrl+Shift+F1 或点托盘图标恢复）" Click="Hide_Click"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Ellipse x:Name="TitleIcon" Width="26" Height="26" Margin="0,0,8,0" StrokeThickness="1.5" Stroke="{DynamicResource Accent}"/>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock x:Name="TitleText" Text="卫戍协议·规程" FontWeight="Bold" Foreground="{DynamicResource Accent}" TextWrapping="NoWrap"/>
+                                <TextBlock x:Name="Status" FontSize="11" Foreground="#9AA6AE" Text="正在寻找游戏窗口…" TextWrapping="NoWrap"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+                <StackPanel x:Name="TabBar" DockPanel.Dock="Top" Orientation="Horizontal" Margin="12,7,12,2">
+                    <RadioButton x:Name="TabGuide" Content="攻略" GroupName="tab" Padding="14,3" Checked="Tab_Checked" Visibility="Collapsed"/>
+                    <RadioButton x:Name="TabPlan" Content="布阵" GroupName="tab" Padding="14,3" Checked="Tab_Checked"/>
+                    <RadioButton x:Name="TabRef" Content="资料" GroupName="tab" Padding="14,3" Checked="Tab_Checked"/>
+                </StackPanel>
+                <ContentControl x:Name="Body" Margin="12,2,8,16" Focusable="False"/>
+            </DockPanel>
+        </Border>
+        <Thumb x:Name="Grip" Width="16" Height="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,7,7"
+               Cursor="SizeNWSE" DragDelta="Grip_DragDelta" DragCompleted="Grip_DragCompleted" ToolTip="拖动调整宽度和高度">
+            <Thumb.Template>
+                <ControlTemplate TargetType="Thumb">
+                    <Grid Background="#01000000">
+                        <Path Data="M14,4 L14,14 L4,14 Z" Fill="{DynamicResource AccentGrip}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Thumb.Template>
+        </Thumb>
+        <!-- 收起后的悬浮球：圆形图片 + 主题色光圈。拖动移动，单击展开，拖到屏幕边缘会半隐藏 -->
+        <Grid x:Name="Ball" Visibility="Collapsed" Width="58" Height="58" Margin="6" HorizontalAlignment="Left" VerticalAlignment="Top"
+              Cursor="SizeAll" MouseLeftButtonDown="Ball_MouseDown" MouseEnter="Ball_MouseEnter" MouseLeave="Ball_MouseLeave"
+              ToolTip="拖动移动 · 单击展开 · 拖到屏幕边缘会半隐藏" RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
+                <ScaleTransform x:Name="BallScale" ScaleX="1" ScaleY="1"/>
+            </Grid.RenderTransform>
+            <Ellipse x:Name="BallBack"/>
+            <Ellipse x:Name="BallFace"/>
+            <Ellipse x:Name="BallRing" StrokeThickness="2.4"/>
+        </Grid>
+    </Grid>
+</Window>

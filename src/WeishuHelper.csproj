@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>disable</Nullable>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <!-- 装了更新的 .NET 桌面运行时也能直接跑 -->
+    <RollForward>Major</RollForward>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>WeishuHelper</AssemblyName>
+    <RootNamespace>WeishuHelper</RootNamespace>
+    <Product>卫戍协议助手</Product>
+    <Version>1.1.0</Version>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <Company>小绿</Company>
+    <Description>卫戍协议·规程 悬浮窗（布阵规划 + 资料）</Description>
+    <SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <!-- WPF 的高 DPI 只能在 manifest 里设，WinForms 只用来做托盘图标 -->
+    <NoWarn>WFAC010</NoWarn>
+  </PropertyGroup>
+
+</Project>
